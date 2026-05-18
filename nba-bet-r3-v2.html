@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBA 2025-26 東西區決賽下注</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+  :root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface2: #1f1f1f;
+    --border: rgba(255,255,255,0.07);
+    --accent: #f0b429;
+    --east: #e63946;
+    --west: #457b9d;
+    --text: #f0f0f0;
+    --muted: #666;
+    --success: #2cb67d;
+    --danger: #e63946;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans TC', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo-wrap { line-height: 1; }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 4px;
+    color: var(--accent);
+  }
+  .logo-sub {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    margin-top: 2px;
+    font-weight: 500;
+  }
+
+  nav { display: flex; gap: 6px; }
+  .nav-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 13px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+  .nav-btn.active { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; }
+
+  .page { display: none; padding: 1.5rem; max-width: 660px; margin: 0 auto; }
+  .page.active { display: block; }
+
+  /* DEADLINE BANNER */
+  .deadline-banner {
+    background: linear-gradient(135deg, #1a1000, #2a1a00);
+    border: 1px solid rgba(240,180,41,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+  }
+  .deadline-icon { font-size: 20px; }
+  .deadline-text { color: var(--accent); font-weight: 500; }
+  .deadline-sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+  /* RULES */
+  .rules-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .rules-card .rule-title { color: var(--text); font-weight: 500; margin-bottom: 6px; font-size: 13px; }
+  .rule-item { display: flex; gap: 8px; align-items: center; margin-bottom: 3px; }
+  .rule-fine { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 1px; }
+  .fine-1200 { color: var(--east); }
+  .fine-600c { color: var(--accent); }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    margin-top: 22px;
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  .conf-badge {
+    display: inline-block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+  }
+  .conf-east { background: var(--east); color: #fff; }
+  .conf-west { background: var(--west); color: #fff; }
+
+  .matchup-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.3rem;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .matchup-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .matchup-card.east::before { background: var(--east); }
+  .matchup-card.west::before { background: var(--west); }
+
+  .matchup-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    color: var(--text);
+    line-height: 1;
+  }
+  .matchup-title .vs { color: var(--muted); font-size: 20px; margin: 0 8px; }
+  .matchup-date { font-size: 11px; color: var(--muted); margin-bottom: 16px; letter-spacing: 1px; }
+
+  .pick-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pick-label { font-size: 11px; color: var(--muted); margin-bottom: 7px; letter-spacing: 1.5px; text-transform: uppercase; }
+
+  .team-buttons { display: flex; gap: 6px; }
+  .team-btn {
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    padding: 10px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s;
+    flex: 1;
+    text-align: center;
+  }
+  .team-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+  .team-btn.sel-east { background: rgba(230,57,70,0.15); border-color: var(--east); color: var(--east); font-weight: 700; }
+  .team-btn.sel-west { background: rgba(69,123,157,0.15); border-color: var(--west); color: var(--west); font-weight: 700; }
+
+  .score-buttons { display: flex; gap: 5px; }
+  .score-btn {
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    padding: 9px 6px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.18s;
+    flex: 1;
+    text-align: center;
+  }
+  .score-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+  .score-btn.sel { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; }
+
+  .select-wrap { position: relative; }
+  .select-wrap::after { content: '▾'; position: absolute; right: 13px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+  select {
+    width: 100%;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    padding: 12px 13px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'Noto Sans TC', sans-serif;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  select:focus { border-color: var(--accent); }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--accent);
+    border: none;
+    color: #000;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer;
+    margin-top: 22px;
+    transition: opacity 0.2s, transform 0.1s;
+    letter-spacing: 1px;
+  }
+  .submit-btn:hover { opacity: 0.88; }
+  .submit-btn:active { transform: scale(0.99); }
+  .submit-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: transform 0.3s;
+    z-index: 999;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.success { border-color: var(--success); color: var(--success); }
+  .toast.error { border-color: var(--danger); color: var(--danger); }
+
+  /* STATS */
+  .stats-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .refresh-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .refresh-btn:hover { color: var(--text); }
+
+  .stats-table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 380px; }
+  thead th {
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 11px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1.5px;
+    padding: 10px 8px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  thead th:first-child { text-align: left; }
+  td { padding: 9px 8px; text-align: center; border-bottom: 1px solid var(--border); color: var(--text); }
+  td:first-child { text-align: left; font-weight: 500; font-size: 13px; }
+  tr:hover td { background: var(--surface); }
+
+  .pick-cell { font-size: 12px; white-space: nowrap; }
+  .pick-cell .tm { font-weight: 600; }
+  .pick-cell .sc { color: var(--muted); font-size: 11px; }
+  .f0 { color: var(--success); font-weight: 700; font-size: 13px; }
+  .f600 { display:inline-block; background: rgba(240,180,41,0.15); color: var(--accent); border-radius: 3px; padding: 1px 7px; font-size: 12px; font-weight: 700; }
+  .f1200 { display:inline-block; background: rgba(230,57,70,0.15); color: var(--east); border-radius: 3px; padding: 1px 7px; font-size: 12px; font-weight: 700; }
+  .f-pending { color: var(--muted); font-size: 12px; }
+  .total-cell { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; }
+  .t-best { color: var(--success); }
+  .t-worst { color: var(--danger); }
+
+  /* ADMIN */
+  .result-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 12px; }
+  .result-card-title { font-size: 14px; font-weight: 500; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+  .result-set { color: var(--success); font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+  .result-pending-lbl { color: var(--muted); font-size: 12px; }
+  .result-input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .result-input-group label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 5px; }
+  .result-input-group select { font-size: 13px; padding: 8px 10px; }
+  .set-result-btn {
+    background: var(--west);
+    border: none; color: #fff;
+    padding: 9px 18px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-top: 6px;
+  }
+  .set-result-btn:hover { opacity: 0.85; }
+
+  .loading { text-align: center; color: var(--muted); padding: 3rem; font-size: 14px; }
+  .summary-box { margin-top: 14px; padding: 12px 16px; background: var(--surface); border-radius: 8px; border: 1px solid var(--border); font-size: 13px; }
+  .actual-row { margin-top: 10px; padding: 10px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; font-size: 12px; color: var(--muted); }
+  .count-row { margin-top: 10px; font-size: 12px; color: var(--muted); text-align: right; }
+
+  @media (max-width: 480px) {
+    header { padding: 0.75rem 1rem; }
+    .page { padding: 1rem; }
+    .pick-row { grid-template-columns: 1fr; }
+    .matchup-title { font-size: 23px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <div class="logo">NBA BET</div>
+    <div class="logo-sub">2025-26 · 東西區決賽</div>
+  </div>
+  <nav>
+    <button class="nav-btn active" onclick="showPage('bet',this)">下注</button>
+    <button class="nav-btn" onclick="showPage('stats',this)">統計</button>
+    <button class="nav-btn" onclick="showPage('admin',this)">管理</button>
+  </nav>
+</header>
+
+<div class="toast" id="toast"></div>
+
+<!-- BET PAGE -->
+<div class="page active" id="page-bet">
+
+  <div class="deadline-banner">
+    <div class="deadline-icon">⏰</div>
+    <div>
+      <div class="deadline-text">下注截止時間：請在比賽開打前完成</div>
+      <div class="deadline-sub">🔴 東區：尼克 vs 騎士　🔵 西區：雷霆 vs 馬刺</div>
+    </div>
+  </div>
+
+  <div class="rules-card">
+    <div class="rule-title">📋 罰金規則</div>
+    <div class="rule-item"><span class="rule-fine fine-1200">1200元</span><span>晉級球隊猜錯（每組）</span></div>
+    <div class="rule-item"><span class="rule-fine fine-600c">600元</span><span>晉級球隊猜對，勝負場次猜錯（每組）</span></div>
+    <div class="rule-item"><span class="rule-fine" style="color:var(--success);">0元</span><span>晉級球隊和場次全對</span></div>
+  </div>
+
+  <div class="section-label">選擇你的名字</div>
+  <div style="margin-bottom:20px;">
+    <div class="select-wrap">
+      <select id="nameSelect" onchange="onNameChange()">
+        <option value="">-- 請選擇姓名 --</option>
+        <option>林育賢</option><option>Marty</option><option>韋宜</option>
+        <option>陳寶吉</option><option>堅叔</option><option>國峯</option>
+        <option>震宇</option><option>郁諺</option><option>達爺</option>
+        <option>兆堂</option><option>志聖</option><option>宥瑞</option>
+        <option>偉祥</option><option>琮凱</option><option>家榮</option>
+        <option>俊霖</option><option>念中</option><option>長書</option>
+        <option>阿賢</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="betForm" style="display:none;">
+
+    <div class="section-label">🔴 東區冠軍賽</div>
+    <div class="matchup-card east">
+      <div class="conf-badge conf-east">EASTERN CONFERENCE FINALS</div>
+      <div class="matchup-title">尼克 <span class="vs">VS</span> 騎士</div>
+      <div class="matchup-date">NEW YORK KNICKS vs CLEVELAND CAVALIERS</div>
+      <div class="pick-row">
+        <div>
+          <div class="pick-label">晉級球隊</div>
+          <div class="team-buttons" id="team-0">
+            <button class="team-btn" onclick="pickTeam(0,'尼克','east')">尼克</button>
+            <button class="team-btn" onclick="pickTeam(0,'騎士','east')">騎士</button>
+          </div>
+        </div>
+        <div>
+          <div class="pick-label">勝負場次</div>
+          <div class="score-buttons" id="score-0">
+            <button class="score-btn" onclick="pickScore(0,'4:0')">4:0</button>
+            <button class="score-btn" onclick="pickScore(0,'4:1')">4:1</button>
+            <button class="score-btn" onclick="pickScore(0,'4:2')">4:2</button>
+            <button class="score-btn" onclick="pickScore(0,'4:3')">4:3</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">🔵 西區冠軍賽</div>
+    <div class="matchup-card west">
+      <div class="conf-badge conf-west">WESTERN CONFERENCE FINALS</div>
+      <div class="matchup-title">雷霆 <span class="vs">VS</span> 馬刺</div>
+      <div class="matchup-date">OKLAHOMA CITY THUNDER vs SAN ANTONIO SPURS</div>
+      <div class="pick-row">
+        <div>
+          <div class="pick-label">晉級球隊</div>
+          <div class="team-buttons" id="team-1">
+            <button class="team-btn" onclick="pickTeam(1,'雷霆','west')">雷霆</button>
+            <button class="team-btn" onclick="pickTeam(1,'馬刺','west')">馬刺</button>
+          </div>
+        </div>
+        <div>
+          <div class="pick-label">勝負場次</div>
+          <div class="score-buttons" id="score-1">
+            <button class="score-btn" onclick="pickScore(1,'4:0')">4:0</button>
+            <button class="score-btn" onclick="pickScore(1,'4:1')">4:1</button>
+            <button class="score-btn" onclick="pickScore(1,'4:2')">4:2</button>
+            <button class="score-btn" onclick="pickScore(1,'4:3')">4:3</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="submit-btn" onclick="submitBet()" id="submitBtn">確認送出下注 ✓</button>
+  </div>
+</div>
+
+<!-- STATS PAGE -->
+<div class="page" id="page-stats">
+  <div class="stats-header">
+    <div class="section-label" style="margin:0;">罰金統計表</div>
+    <button class="refresh-btn" onclick="loadStats()">↻ 重新整理</button>
+  </div>
+  <div id="statsContent"><div class="loading">載入中...</div></div>
+</div>
+
+<!-- ADMIN PAGE -->
+<div class="page" id="page-admin">
+  <div class="section-label">設定比賽結果</div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">比賽結束後輸入實際結果，統計頁面自動更新罰金。</p>
+
+  <div class="result-card">
+    <div class="result-card-title">
+      <span>🔴 尼克 vs 騎士</span>
+      <span class="result-pending-lbl" id="r0-status">尚未設定</span>
+    </div>
+    <div class="result-input-row">
+      <div class="result-input-group">
+        <label>晉級球隊</label>
+        <div class="select-wrap">
+          <select id="r0-team"><option value="">-- 選擇 --</option><option>尼克</option><option>騎士</option></select>
+        </div>
+      </div>
+      <div class="result-input-group">
+        <label>勝負場次</label>
+        <div class="select-wrap">
+          <select id="r0-score"><option value="">-- 選擇 --</option><option>4:0</option><option>4:1</option><option>4:2</option><option>4:3</option></select>
+        </div>
+      </div>
+    </div>
+    <button class="set-result-btn" onclick="setResult(0)">儲存結果</button>
+  </div>
+
+  <div class="result-card">
+    <div class="result-card-title">
+      <span>🔵 雷霆 vs 馬刺</span>
+      <span class="result-pending-lbl" id="r1-status">尚未設定</span>
+    </div>
+    <div class="result-input-row">
+      <div class="result-input-group">
+        <label>晉級球隊</label>
+        <div class="select-wrap">
+          <select id="r1-team"><option value="">-- 選擇 --</option><option>雷霆</option><option>馬刺</option></select>
+        </div>
+      </div>
+      <div class="result-input-group">
+        <label>勝負場次</label>
+        <div class="select-wrap">
+          <select id="r1-score"><option value="">-- 選擇 --</option><option>4:0</option><option>4:1</option><option>4:2</option><option>4:3</option></select>
+        </div>
+      </div>
+    </div>
+    <button class="set-result-btn" onclick="setResult(1)">儲存結果</button>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCDSDhmx2P24RbHkamXLY7eYWxqxSJp-7E",
+  authDomain: "nba-bet-a62b6.firebaseapp.com",
+  projectId: "nba-bet-a62b6",
+  storageBucket: "nba-bet-a62b6.firebasestorage.app",
+  messagingSenderId: "741141847601",
+  appId: "1:741141847601:web:14715516c5d5aece597f10",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const COLLECTION = 'bets_r3_main_v2';
+const RESULTS_COL = 'results_r3_main_v2';
+
+const MATCHUPS = [
+  { label: '尼克 vs 騎士', conf: 'east' },
+  { label: '雷霆 vs 馬刺', conf: 'west' },
+];
+
+const NAMES = [
+  '林育賢','Marty','韋宜','陳寶吉','堅叔','國峯',
+  '震宇','郁諺','達爺','兆堂','志聖','宥瑞',
+  '偉祥','琮凱','家榮','俊霖','念中','長書','阿賢'
+];
+
+let picks = [{team:'',score:''},{team:'',score:''}];
+
+window.showPage = showPage;
+window.onNameChange = onNameChange;
+window.pickTeam = pickTeam;
+window.pickScore = pickScore;
+window.submitBet = submitBet;
+window.setResult = setResult;
+window.loadStats = loadStats;
+
+function showPage(p, btn) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-' + p).classList.add('active');
+  btn.classList.add('active');
+  if (p === 'stats') loadStats();
+  if (p === 'admin') loadResults();
+}
+
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+function onNameChange() {
+  const name = document.getElementById('nameSelect').value;
+  document.getElementById('betForm').style.display = name ? 'block' : 'none';
+  if (name) loadExistingBet(name);
+}
+
+async function loadExistingBet(name) {
+  try {
+    const snap = await getDoc(doc(db, COLLECTION, name));
+    if (snap.exists()) {
+      picks = snap.data().picks;
+      picks.forEach((p, i) => {
+        if (p.team) pickTeam(i, p.team, MATCHUPS[i].conf, false);
+        if (p.score) pickScore(i, p.score, false);
+      });
+      showToast('已載入你之前的下注，可修改後重新送出');
+    } else {
+      picks = [{team:'',score:''},{team:'',score:''}];
+      document.querySelectorAll('.team-btn').forEach(b => b.className='team-btn');
+      document.querySelectorAll('.score-btn').forEach(b => b.className='score-btn');
+    }
+  } catch(e) {}
+}
+
+function pickTeam(idx, team, conf, save=true) {
+  if (save) picks[idx].team = team;
+  document.querySelectorAll(`#team-${idx} .team-btn`).forEach(b => {
+    b.className = 'team-btn';
+    if (b.textContent === team) b.classList.add('sel-' + conf);
+  });
+}
+
+function pickScore(idx, score, save=true) {
+  if (save) picks[idx].score = score;
+  document.querySelectorAll(`#score-${idx} .score-btn`).forEach(b => {
+    b.className = 'score-btn';
+    if (b.textContent === score) b.classList.add('sel');
+  });
+}
+
+async function submitBet() {
+  const name = document.getElementById('nameSelect').value;
+  if (!name) { showToast('請先選擇姓名', 'error'); return; }
+  for (let i = 0; i < 2; i++) {
+    if (!picks[i].team || !picks[i].score) {
+      showToast(`請完成第 ${i+1} 場的下注`, 'error'); return;
+    }
+  }
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = '送出中...';
+  try {
+    await setDoc(doc(db, COLLECTION, name), { name, picks, updatedAt: new Date().toISOString() });
+    showToast('下注成功！', 'success');
+  } catch(e) {
+    showToast('送出失敗，請稍後再試', 'error');
+  }
+  btn.disabled = false; btn.textContent = '確認送出下注 ✓';
+}
+
+async function loadStats() {
+  const el = document.getElementById('statsContent');
+  el.innerHTML = '<div class="loading">載入中...</div>';
+  try {
+    const [betsSnap, resSnap] = await Promise.all([
+      getDocs(collection(db, COLLECTION)),
+      getDoc(doc(db, RESULTS_COL, 'main'))
+    ]);
+
+    const bets = {};
+    betsSnap.forEach(d => { bets[d.id] = d.data(); });
+
+    let res = [{team:'',score:''},{team:'',score:''}];
+    if (resSnap.exists()) res = resSnap.data().results;
+    const hasAnyResult = res.some(r => r.team);
+
+    let html = '<div class="stats-table-wrap"><table><thead><tr><th>姓名</th>';
+    MATCHUPS.forEach(m => { html += `<th>${m.label}</th>`; });
+    html += '<th>總罰金</th></tr></thead><tbody>';
+
+    let totals = [];
+    NAMES.forEach(name => {
+      const b = bets[name];
+      let total = 0; let hasPending = false;
+      let row = `<tr><td>${name}${!b ? '<br><span style="color:var(--muted);font-size:11px;">未填</span>' : ''}</td>`;
+      MATCHUPS.forEach((m, i) => {
+        if (!b) {
+          row += `<td class="f-pending">-</td>`; hasPending = true;
+        } else {
+          const p = b.picks[i];
+          const r = res[i];
+          let fineHtml = `<div class="pick-cell"><span class="tm">${p.team}</span> <span class="sc">${p.score}</span></div>`;
+          if (r.team) {
+            let fine = p.team !== r.team ? 1200 : p.score !== r.score ? 600 : 0;
+            let cls = fine === 0 ? 'f0' : fine === 600 ? 'f600' : 'f1200';
+            fineHtml += `<div class="${cls}">${fine === 0 ? '✓ 0' : fine}</div>`;
+            total += fine;
+          } else {
+            fineHtml += `<div class="f-pending">待定</div>`; hasPending = true;
+          }
+          row += `<td>${fineHtml}</td>`;
+        }
+      });
+      totals.push({ name, total, hasPending, hasBet: !!b });
+      row += `<td class="total-cell">${(!b || hasPending) ? '-' : total}</td></tr>`;
+      html += row;
+    });
+
+    html += '</tbody></table></div>';
+
+    if (hasAnyResult) {
+      const settled = totals.filter(t => t.hasBet && !t.hasPending);
+      if (settled.length > 0) {
+        const min = Math.min(...settled.map(t => t.total));
+        const max = Math.max(...settled.map(t => t.total));
+        const sorted = [...settled].sort((a,b) => a.total - b.total);
+        const secondWorst = sorted.length >= 2 ? sorted[sorted.length - 2].total : null;
+
+        html += `<div class="summary-box">
+          <div style="color:var(--success);margin-bottom:5px;">🏆 最低罰金：${settled.filter(t=>t.total===min).map(t=>t.name).join('、')} — ${min} 元</div>
+          <div style="color:var(--danger);margin-bottom:5px;">💸 最高罰金：${settled.filter(t=>t.total===max).map(t=>t.name).join('、')} — ${max} 元</div>
+          ${secondWorst !== null && secondWorst !== max ? `<div style="color:var(--accent);">🥈 2nd to Last：${settled.filter(t=>t.total===secondWorst).map(t=>t.name).join('、')} — ${secondWorst} 元（可少繳 300 元）</div>` : ''}
+        </div>`;
+      }
+      html += `<div class="actual-row"><span style="color:var(--text);font-weight:500;margin-right:8px;">實際結果：</span>`;
+      res.forEach((r, i) => {
+        if (r.team) html += `<span style="margin-right:14px;color:var(--text);">${MATCHUPS[i].label.split(' vs ')[0]} → <b>${r.team} ${r.score}</b></span>`;
+      });
+      html += `</div>`;
+    }
+
+    const filled = NAMES.filter(n => bets[n]).length;
+    html += `<div class="count-row">已下注：${filled} / ${NAMES.length} 人</div>`;
+    el.innerHTML = html;
+  } catch(e) {
+    el.innerHTML = '<div class="loading">載入失敗，請重試</div>';
+  }
+}
+
+async function loadResults() {
+  try {
+    const snap = await getDoc(doc(db, RESULTS_COL, 'main'));
+    if (snap.exists()) {
+      const res = snap.data().results;
+      res.forEach((r, i) => {
+        if (r.team) {
+          document.getElementById(`r${i}-team`).value = r.team;
+          document.getElementById(`r${i}-score`).value = r.score;
+          document.getElementById(`r${i}-status`).textContent = `${r.team} ${r.score}`;
+          document.getElementById(`r${i}-status`).className = 'result-set';
+        }
+      });
+    }
+  } catch(e) {}
+}
+
+async function setResult(idx) {
+  const team = document.getElementById(`r${idx}-team`).value;
+  const score = document.getElementById(`r${idx}-score`).value;
+  if (!team || !score) { showToast('請選擇隊伍和場次', 'error'); return; }
+  try {
+    const snap = await getDoc(doc(db, RESULTS_COL, 'main'));
+    let res = [{team:'',score:''},{team:'',score:''}];
+    if (snap.exists()) res = snap.data().results;
+    res[idx] = { team, score };
+    await setDoc(doc(db, RESULTS_COL, 'main'), { results: res });
+    document.getElementById(`r${idx}-status`).textContent = `${team} ${score}`;
+    document.getElementById(`r${idx}-status`).className = 'result-set';
+    showToast('結果已儲存！', 'success');
+  } catch(e) {
+    showToast('儲存失敗', 'error');
+  }
+}
+</script>
+</body>
+</html>
